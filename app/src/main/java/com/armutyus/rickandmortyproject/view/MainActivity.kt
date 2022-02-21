@@ -1,7 +1,8 @@
-package com.armutyus.rickandmortyproject
+package com.armutyus.rickandmortyproject.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.armutyus.rickandmortyproject.R
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
