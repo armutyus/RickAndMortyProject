@@ -18,5 +18,10 @@
         android:id="@+id/characterDetailsFragment"
         android:name="com.armutyus.rickandmortyproject.view.CharacterDetailsFragment"
         android:label="fragment_character_details"
-        tools:layout="@layout/fragment_character_details" />
+        tools:layout="@layout/fragment_character_details" >
+        <argument
+            android:name="charID"
+            app:argType="integer"
+            android:defaultValue="0" />
+    </fragment>
 </navigation>

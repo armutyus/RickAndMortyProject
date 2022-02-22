@@ -1,13 +1,13 @@
 package com.armutyus.rickandmortyproject.api
 
 import com.armutyus.rickandmortyproject.model.CharacterDetails
-import io.reactivex.Single
+import retrofit2.Response
 import retrofit2.http.GET
 
 interface CharactersAPI {
 
-    @GET("character")
+    @GET("/character")
 
-    fun getCharacters(): Single<List<CharacterDetails>>
+    suspend fun getCharacters(): Response<CharacterDetails>
 
 }

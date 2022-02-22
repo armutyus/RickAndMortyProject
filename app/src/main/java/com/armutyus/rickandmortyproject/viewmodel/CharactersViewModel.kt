@@ -1,57 +1,31 @@
 package com.armutyus.rickandmortyproject.viewmodel
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.armutyus.rickandmortyproject.api.CharactersAPI
+import androidx.lifecycle.viewModelScope
 import com.armutyus.rickandmortyproject.model.CharacterDetails
+import com.armutyus.rickandmortyproject.repo.CharacterRepoInterface
 import com.armutyus.rickandmortyproject.util.Resource
-import com.bumptech.glide.RequestManager
 import dagger.hilt.android.lifecycle.HiltViewModel
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.observers.DisposableSingleObserver
-import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class CharactersViewModel @Inject constructor(
-    private val charactersAPI: CharactersAPI
-): ViewModel() {
-    private val disposable = CompositeDisposable()
-    val charactersList = MutableLiveData<List<CharacterDetails>>()
-    val characterError = MutableLiveData<Boolean>()
-    val characterLoading = MutableLiveData<Boolean>()
+    private val repository: CharacterRepoInterface
+) : ViewModel() {
 
-    private fun getDataFromApi() {
+    private val characters = MutableLiveData<Resource<CharacterDetails>>()
+    val charList: LiveData<Resource<CharacterDetails>>
+        get() = characters
 
-        disposable.add(charactersAPI.getCharacters()
-            .subscribeOn(Schedulers.newThread())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeWith(object : DisposableSingleObserver<List<CharacterDetails>>() {
-                override fun onSuccess(t: List<CharacterDetails>) {
-                    characterLoading.value = true
-                    val response = t
-                    if (response.isNotEmpty()) {
-                        Resource.success(t)
-                    }
-                }
+    fun makeCharacters(imageString: String, nameString: String) {
 
-                override fun onError(e: Throwable) {
-                    characterError.value = true
-                    characterLoading.value = false
-                    Resource.error("Error!", null)
-                    e.printStackTrace()
-                }
-
-            })
-        )
-
-    }
-
-    private fun showCharacters(characterShow: CharacterDetails) {
-        charactersList.value = listOf(characterShow)
-        characterLoading.value = false
-        characterError.value = false
+        viewModelScope.launch {
+            val response = repository.characterMain(imageString, nameString)
+            characters.value = response
+        }
     }
 
 }

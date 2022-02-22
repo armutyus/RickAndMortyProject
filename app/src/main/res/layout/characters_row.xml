@@ -11,18 +11,11 @@
         android:id="@+id/charactersImage"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:onClick="toDetails"
         android:scaleType="centerCrop"
         android:src="@color/cardview_dark_background" />
 
-    <ProgressBar
-        android:id="@+id/charactersLoading"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        />
-
     <TextView
+        android:id="@+id/charactersName"
         android:layout_width="100dp"
         android:layout_height="20dp"
         android:text="Char Name"
