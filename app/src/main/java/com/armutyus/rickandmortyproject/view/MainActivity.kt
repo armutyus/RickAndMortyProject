@@ -2,7 +2,6 @@ package com.armutyus.rickandmortyproject.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.fragment.app.FragmentFactory
 import com.armutyus.rickandmortyproject.R
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject

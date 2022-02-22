@@ -7,7 +7,7 @@ import javax.inject.Inject
 
 class CharacterRepo @Inject constructor(
     private val charactersAPI: CharactersAPI
-): CharacterRepoInterface {
+) : CharacterRepoInterface {
     override suspend fun characterMain(
         imageString: String,
         nameString: String
@@ -17,12 +17,12 @@ class CharacterRepo @Inject constructor(
             if (response.isSuccessful) {
                 response.body()?.let {
                     return@let Resource.success(it)
-                } ?: Resource.error("Error",null)
+                } ?: Resource.error("Error", null)
             } else {
-                Resource.error("Error",null)
+                Resource.error("Error", null)
             }
         } catch (e: Exception) {
-            Resource.error("No data!",null)
+            Resource.error("No data!", null)
         }
     }
 }

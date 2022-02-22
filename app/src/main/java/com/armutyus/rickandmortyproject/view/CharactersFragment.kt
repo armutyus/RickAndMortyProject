@@ -2,9 +2,7 @@ package com.armutyus.rickandmortyproject.view
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -39,18 +37,20 @@ class CharactersFragment @Inject constructor(
 
     private fun observeLiveData() {
         viewModel.charList.observe(viewLifecycleOwner, Observer {
-            when(it.status) {
+            when (it.status) {
                 Status.SUCCESS -> {
                     val url = it.data?.results?.map { imageUrl -> imageUrl.image }
                     val name = it.data?.results?.map { name -> name.name }
-                    viewModel.makeCharacters(url.toString(),name.toString())
+                    viewModel.makeCharacters(url.toString(), name.toString())
 
-                    Toast.makeText(requireContext(),it.message ?: "Success", Toast.LENGTH_LONG).show()
+                    Toast.makeText(requireContext(), it.message ?: "Success", Toast.LENGTH_LONG)
+                        .show()
 
                 }
 
                 Status.ERROR -> {
-                    Toast.makeText(requireContext(),it.message ?: "Error", Toast.LENGTH_LONG).show()
+                    Toast.makeText(requireContext(), it.message ?: "Error", Toast.LENGTH_LONG)
+                        .show()
 
                 }
 
