@@ -20,10 +20,9 @@ class CharactersViewModel @Inject constructor(
     val charList: LiveData<Resource<CharacterDetails>>
         get() = characters
 
-    fun makeCharacters(imageString: String, nameString: String) {
-
+    fun makeCharacters() {
         viewModelScope.launch {
-            val response = repository.characterMain(imageString, nameString)
+            val response = repository.characterMain()
             characters.value = response
         }
     }

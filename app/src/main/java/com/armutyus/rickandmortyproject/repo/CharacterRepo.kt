@@ -8,10 +8,7 @@ import javax.inject.Inject
 class CharacterRepo @Inject constructor(
     private val charactersAPI: CharactersAPI
 ) : CharacterRepoInterface {
-    override suspend fun characterMain(
-        imageString: String,
-        nameString: String
-    ): Resource<CharacterDetails> {
+    override suspend fun characterMain(): Resource<CharacterDetails> {
         return try {
             val response = charactersAPI.getCharacters()
             if (response.isSuccessful) {

@@ -5,5 +5,5 @@ import com.armutyus.rickandmortyproject.util.Resource
 
 interface CharacterRepoInterface {
 
-    suspend fun characterMain(imageString: String, nameString: String): Resource<CharacterDetails>
+    suspend fun characterMain(): Resource<CharacterDetails>
 }

@@ -35,15 +35,21 @@ class CharactersFragment @Inject constructor(
 
     }
 
+    override fun onResume() {
+        super.onResume()
+        viewModel.makeCharacters()
+    }
+
     private fun observeLiveData() {
         viewModel.charList.observe(viewLifecycleOwner, Observer {
             when (it.status) {
                 Status.SUCCESS -> {
+
                     val url = it.data?.results?.map { imageUrl -> imageUrl.image }
                     val name = it.data?.results?.map { name -> name.name }
-                    viewModel.makeCharacters(url.toString(), name.toString())
+                    viewModel.makeCharacters()
 
-                    Toast.makeText(requireContext(), it.message ?: "Success", Toast.LENGTH_LONG)
+                    Toast.makeText(requireContext(), url.toString() + " " + name ?: "Success", Toast.LENGTH_LONG)
                         .show()
 
                 }
@@ -66,6 +72,4 @@ class CharactersFragment @Inject constructor(
         fragmentBinding = null
         super.onDestroyView()
     }
-
-
 }
