@@ -1,10 +1,12 @@
 package com.armutyus.rickandmortyproject.DI
 
 import android.content.Context
+import com.armutyus.rickandmortyproject.R
 import com.armutyus.rickandmortyproject.api.CharactersAPI
 import com.armutyus.rickandmortyproject.repo.CharacterRepo
 import com.armutyus.rickandmortyproject.repo.CharacterRepoInterface
-import com.squareup.picasso.Picasso
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -36,7 +38,11 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun injectPicasso(@ApplicationContext context: Context) = Picasso.Builder(context).build()
+    fun injectGlide(@ApplicationContext context: Context) = Glide
+        .with(context).setDefaultRequestOptions(
+            RequestOptions().placeholder(R.drawable.ic_launcher_foreground)
+                .error(R.drawable.ic_launcher_foreground)
+        )
 
 
 }

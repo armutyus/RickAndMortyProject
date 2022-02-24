@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.armutyus.rickandmortyproject.R
 import com.armutyus.rickandmortyproject.adapter.CharactersAdapter
 import com.armutyus.rickandmortyproject.databinding.FragmentCharactersBinding
+import com.armutyus.rickandmortyproject.model.Result
 import com.armutyus.rickandmortyproject.util.Status
 import com.armutyus.rickandmortyproject.viewmodel.CharactersViewModel
 import javax.inject.Inject
@@ -37,7 +38,7 @@ class CharactersFragment @Inject constructor(
 
     override fun onResume() {
         super.onResume()
-        viewModel.makeCharacters()
+        viewModel.makeCharactersResponse()
     }
 
     private fun observeLiveData() {
@@ -45,11 +46,14 @@ class CharactersFragment @Inject constructor(
             when (it.status) {
                 Status.SUCCESS -> {
 
-                    val url = it.data?.results?.map { imageUrl -> imageUrl.image }
-                    val name = it.data?.results?.map { name -> name.name }
-                    viewModel.makeCharacters()
+                    val imageUrl = it.data?.results?.map { imageData -> imageData.image
+                    }
+                    val charNames = it.data?.results?.map { charName -> charName.name }
 
-                    Toast.makeText(requireContext(), url.toString() + " " + name ?: "Success", Toast.LENGTH_LONG)
+                    charactersAdapter.charImage = imageUrl!!
+                    charactersAdapter.charName = charNames!!
+
+                    Toast.makeText(requireContext(), "Success", Toast.LENGTH_LONG)
                         .show()
 
                 }
