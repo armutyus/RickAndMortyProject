@@ -21,7 +21,27 @@ class CharactersAdapter @Inject constructor(
 
     class CharactersViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
-    private val diffUtil = object : DiffUtil.ItemCallback<String>() {
+    private val diffUtil = object : DiffUtil.ItemCallback<Result>() {
+        override fun areItemsTheSame(oldItem: Result, newItem: Result): Boolean {
+            return oldItem == newItem
+        }
+
+        override fun areContentsTheSame(oldItem: Result, newItem: Result): Boolean {
+            return oldItem == newItem
+        }
+
+
+    }
+
+    private val recyclerListDiffer = AsyncListDiffer(this, diffUtil)
+
+    var characters: List<Result>
+        get() = recyclerListDiffer.currentList
+        set(value) = recyclerListDiffer.submitList(value)
+
+    /*var characters = ArrayList<Result>()
+
+    private val diffUtilForImage = object : DiffUtil.ItemCallback<String>() {
         override fun areItemsTheSame(oldItem: String, newItem: String): Boolean {
             return oldItem == newItem
         }
@@ -33,15 +53,28 @@ class CharactersAdapter @Inject constructor(
 
     }
 
-    private val recyclerListDiffer = AsyncListDiffer(this, diffUtil)
+    private val recyclerListDifferImage = AsyncListDiffer(this, diffUtilForImage)
 
-    var characters = ArrayList<Result>()
+    private val diffUtilForName = object : DiffUtil.ItemCallback<String>() {
+        override fun areItemsTheSame(oldItem: String, newItem: String): Boolean {
+            return oldItem == newItem
+        }
+
+        override fun areContentsTheSame(oldItem: String, newItem: String): Boolean {
+            return oldItem == newItem
+        }
+
+
+    }
+
+    private val recyclerListDifferName = AsyncListDiffer(this, diffUtilForName)
+
     var charImage: List<String>
-        get() = recyclerListDiffer.currentList
-        set(value) = recyclerListDiffer.submitList(value)
+        get() = recyclerListDifferImage.currentList
+        set(value) = recyclerListDifferImage.submitList(value)
     var charName: List<String>
-        get() = recyclerListDiffer.currentList
-        set(value) = recyclerListDiffer.submitList(value)
+        get() = recyclerListDifferName.currentList
+        set(value) = recyclerListDifferName.submitList(value)*/
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CharactersViewHolder {
         val view =
@@ -53,17 +86,18 @@ class CharactersAdapter @Inject constructor(
 
         val imageView = holder.itemView.findViewById<ImageView>(R.id.charactersImage)
         val charNameText = holder.itemView.findViewById<TextView>(R.id.charactersName)
-        val charsImage = charImage[position]
-        val charName = charName[position]
+        /*val charsImage = char[position]
+        val charName = charName[position]*/
+        val chars = characters[position]
         holder.itemView.apply {
-            charNameText.text = charName
-            glide.load(charsImage).fitCenter().into(imageView)
+            charNameText.text = chars.name
+            glide.load(chars.image).into(imageView)
         }
 
         holder.itemView.setOnClickListener {
             val action =
                 CharactersFragmentDirections.actionCharactersFragmentToCharacterDetailsFragment(
-                    characters[position].id
+                    chars.id
                 )
             Navigation.findNavController(it).navigate(action)
         }
@@ -71,6 +105,6 @@ class CharactersAdapter @Inject constructor(
     }
 
     override fun getItemCount(): Int {
-        return charImage.size
+        return characters.size
     }
 }
