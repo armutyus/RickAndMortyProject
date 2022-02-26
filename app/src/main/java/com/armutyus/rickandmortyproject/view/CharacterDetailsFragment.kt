@@ -47,10 +47,6 @@ class CharacterDetailsFragment @Inject constructor(
         binding.recyclerViewDetails.adapter = characterDetailsAdapter
         binding.recyclerViewDetails.layoutManager = LinearLayoutManager(requireContext())
 
-        //viewModel.getDetailChar(chardetailID)
-
-        //observeDetails()
-
         val charDetailList = ArrayList<String>()
         charDetailList.add(charDetailImage)
         charDetailList.add(charDetailStatus)
@@ -60,32 +56,6 @@ class CharacterDetailsFragment @Inject constructor(
         characterDetailsAdapter.characterDetails = charDetailList
     }
 
-
-
-    /*override fun onResume() {
-        super.onResume()
-        viewModel.getDetailChar(chardetailID)
-    }
-
-    private fun observeDetails() {
-        viewModel.characterDetail.observe(viewLifecycleOwner, Observer {
-
-            characterDetailsAdapter.characterDetails = it
-
-        })
-
-            /*
-
-                val charDetailList = it.body()?.results?.toList()
-                characterDetailsAdapter.characterDetails = charDetailList!!
-
-                } else {
-                    Toast.makeText(context,"Error",Toast.LENGTH_LONG).show()
-                }} catch (e: Exception) {
-                    e.printStackTrace()
-                }
-            })*/
-    }*/
 
     override fun onDestroyView() {
         fragmentBinding = null

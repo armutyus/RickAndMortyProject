@@ -30,17 +30,4 @@ class CharactersViewModel @Inject constructor(
         }
     }
 
-    /*private val charDetail = MutableLiveData<List<Result>>()
-    val characterDetail: LiveData<List<Result>>
-        get() = charDetail
-
-    fun getDetailChar(id: Int) {
-        viewModelScope.launch {
-            val details = repository.characterDetail(id).data?.
-            charDetail.value = details!!
-            println("vm" + charDetail.value)
-        }
-
-    }*/
-
 }

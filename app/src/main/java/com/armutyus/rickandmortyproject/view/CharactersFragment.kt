@@ -46,17 +46,8 @@ class CharactersFragment @Inject constructor(
             when (it.status) {
                 Status.SUCCESS -> {
 
-                    /*val imageUrl = it.data?.results?.map { imageData -> imageData.image }
-                    val charNames = it.data?.results?.map { charName -> charName.name }
-
-                    charactersAdapter.charImage = imageUrl!!
-                    charactersAdapter.charName = charNames!!*/
-
                     val charDataMain = it.data?.results?.toList()
                     charactersAdapter.characters = charDataMain!!
-
-                    /*Toast.makeText(requireContext(), "Success", Toast.LENGTH_LONG)
-                        .show()*/
 
                 }
 

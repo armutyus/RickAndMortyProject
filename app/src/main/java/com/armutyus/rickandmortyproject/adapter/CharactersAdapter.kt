@@ -39,43 +39,6 @@ class CharactersAdapter @Inject constructor(
         get() = recyclerListDiffer.currentList
         set(value) = recyclerListDiffer.submitList(value)
 
-    /*var characters = ArrayList<Result>()
-
-    private val diffUtilForImage = object : DiffUtil.ItemCallback<String>() {
-        override fun areItemsTheSame(oldItem: String, newItem: String): Boolean {
-            return oldItem == newItem
-        }
-
-        override fun areContentsTheSame(oldItem: String, newItem: String): Boolean {
-            return oldItem == newItem
-        }
-
-
-    }
-
-    private val recyclerListDifferImage = AsyncListDiffer(this, diffUtilForImage)
-
-    private val diffUtilForName = object : DiffUtil.ItemCallback<String>() {
-        override fun areItemsTheSame(oldItem: String, newItem: String): Boolean {
-            return oldItem == newItem
-        }
-
-        override fun areContentsTheSame(oldItem: String, newItem: String): Boolean {
-            return oldItem == newItem
-        }
-
-
-    }
-
-    private val recyclerListDifferName = AsyncListDiffer(this, diffUtilForName)
-
-    var charImage: List<String>
-        get() = recyclerListDifferImage.currentList
-        set(value) = recyclerListDifferImage.submitList(value)
-    var charName: List<String>
-        get() = recyclerListDifferName.currentList
-        set(value) = recyclerListDifferName.submitList(value)*/
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CharactersViewHolder {
         val view =
             LayoutInflater.from(parent.context).inflate(R.layout.characters_row, parent, false)
@@ -86,8 +49,6 @@ class CharactersAdapter @Inject constructor(
 
         val imageView = holder.itemView.findViewById<ImageView>(R.id.charactersImage)
         val charNameText = holder.itemView.findViewById<TextView>(R.id.charactersName)
-        /*val charsImage = char[position]
-        val charName = charName[position]*/
         val chars = characters[position]
         holder.itemView.apply {
             charNameText.text = chars.name
@@ -97,7 +58,11 @@ class CharactersAdapter @Inject constructor(
         holder.itemView.setOnClickListener {
             val action =
                 CharactersFragmentDirections.actionCharactersFragmentToCharacterDetailsFragment(
-                    charID = chars.id, charImage = chars.image, charLocation = chars.location.name, charName = chars.name, charStatus = chars.status
+                    charID = chars.id,
+                    charImage = chars.image,
+                    charLocation = chars.location.name,
+                    charName = chars.name,
+                    charStatus = chars.status
                 )
             Navigation.findNavController(it).navigate(action)
         }
