@@ -23,5 +23,17 @@
             android:name="charID"
             app:argType="integer"
             android:defaultValue="0" />
+        <argument
+            android:name="charName"
+            app:argType="string" />
+        <argument
+            android:name="charImage"
+            app:argType="string" />
+        <argument
+            android:name="charStatus"
+            app:argType="string" />
+        <argument
+            android:name="charLocation"
+            app:argType="string" />
     </fragment>
 </navigation>

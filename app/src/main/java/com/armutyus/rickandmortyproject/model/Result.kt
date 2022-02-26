@@ -5,6 +5,5 @@ data class Result(
     val image: String,
     val location: Location,
     val name: String,
-    val origin: Origin,
     val status: String,
 )

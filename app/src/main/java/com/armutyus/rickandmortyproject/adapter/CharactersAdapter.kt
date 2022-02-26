@@ -97,7 +97,7 @@ class CharactersAdapter @Inject constructor(
         holder.itemView.setOnClickListener {
             val action =
                 CharactersFragmentDirections.actionCharactersFragmentToCharacterDetailsFragment(
-                    chars.id
+                    charID = chars.id, charImage = chars.image, charLocation = chars.location.name, charName = chars.name, charStatus = chars.status
                 )
             Navigation.findNavController(it).navigate(action)
         }
